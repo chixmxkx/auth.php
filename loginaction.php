@@ -1,37 +1,28 @@
 <?php session_start();
 
-$_SESSION['email_address'] = $current_user;
-$_SESSION['password'] = $passwordFromUser;
+if($_POST['email_address']){
+    $email_address = trim($_POST['email_address']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    //var_dump($password);
+    //exit;
 
-$allUsers = scandir("db/users/");
-$countAllUsers = count($allUsers);
-    
-for($counter = 0; $counter < $countAllUsers; $counter++){
+    $userString = file_get_contents("database/".$email_address . ".json", "r");
+    $userData = json_decode($userString, true);
 
-    $currentUser = $allUsers[$counter];
-
-    if($currentUser == $email_address . ".json"){
-        $userString = file_get_contents("db/users/".$currentUser);
-        $userData = json_decode($userString);
-        $passwordFromDB = $userData -> password;
-
-        $passwordFromUser = password_verify($password, $passwordFromDB);
-
-        if($passwordFromDB == $passwordFromUser){
-            echo "You are now signed in";
-            header("Location: home.php");
-            die();
-        }
-        else{$_SESSION["ERROR"] = "Invalid Password. Try again";
-            header("Location: login.php"); 
-            die();  
-
-        }        
+    if(empty($userData)){
+        $_SESSION['ERROR'] = "Invalid Details. Try again";
+        header("Location: login.php");
     }
 
-}
-$_SESSION['error'] = "Invalid Email Address or Password";
-header("Location: login.php");
-die();
-    
+    if($userData['email_address'] == $email_address && $userData['password'] == $password){
+        $_SESSION["message"] = "You are now signed in";
+        header("Location: home.php");
+        die();
+    }
+    else{
+        $_SESSION["error"] = "Invalid Password. Try again";
+        header("Location: login.php"); 
+        die(); 
+    }
+}  
 ?> 

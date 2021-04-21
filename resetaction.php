@@ -30,25 +30,25 @@ if(isset($_POST['submit'])){
                     $userData -> password = password_hash($password, PASSWORD_DEFAULT);
                     unlink("db/users/" .$currentUser);
                     file_put_contents("db/users/" . $email_address . ".json" . json_encode($userData)); 
-                    $_SESSION["message"] = "Password Reset Successful!";
                     header("Location: home.php");
+                    $_SESSION["message"] = "Password Reset Successful!";
                 }
                 else{
-                    $_SESSION["ERROR"] = "Passwords do not match";
                     header("Location: reset.php"); 
+                    $_SESSION["ERROR"] = "Passwords do not match";
                     die();  
                 }
             }
             else{
-                $_SESSION["ERROR"] = "Password Incorrect. Try again";
-                header("Location: reset.php"); 
+                header("Location: reset.php");
+                $_SESSION["ERROR"] = "Password Incorrect. Try again"; 
                 die();  
             }        
         }
 
     }
-    $_SESSION['error'] = "Invalid Email Address or Password";
     header("Location: home.php");
+    $_SESSION['error'] = "Invalid Email Address or Password";
     die();
 }
 ?> 

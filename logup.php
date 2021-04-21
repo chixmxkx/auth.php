@@ -88,7 +88,7 @@ include_once('LIB/header.php')
         <label>Account Type</label><br/>
         <select>
         <?php
-            if(isset($_SESSION['account_typr'])){
+            if(isset($_SESSION['account_type'])){
                 echo "value=" .$_SESSION['account_type'];
             }
         ?>
