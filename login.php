@@ -4,13 +4,22 @@ include_once('LIB/header.php')
 <title>Login Page</title>
 <body>
     <h1>Sign in</h1>
-    <form method = "POST" action = "loginaction.php" >       
-      <?php
-          if(isset($_SESSION['ERROR']) && !empty($_SESSION['ERROR'])){
-             echo $_SESSION ['ERROR'];
-          session_destroy();
-          }
-      ?>
+    <h3><?php
+    if(isset($_SESSION['ERROR'])){
+        echo $_SESSION['ERROR'];
+        session_unset();
+    } 
+    ?></h3>
+
+    <h3><?php
+    if(isset($_SESSION['ERR'])){
+        echo $_SESSION['ERR'];
+        session_unset();
+    } 
+    ?></h3>
+
+    <form method = "POST" action = "loginaction.php" >
+
         <div>
         <label>Email Address</label><br/><input 
         <?php

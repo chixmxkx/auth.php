@@ -9,6 +9,20 @@ include_once('LIB/header.php')
 <body>
 
     <h1>Sign up</h1>
+
+    <h3><?php
+    if(isset($_SESSION['regmes'])){
+        echo $_SESSION['regmes'];
+        session_unset(); 
+    }
+    ?></h3>
+
+    <h3><?php
+    if(isset($_SESSION['regerror'])){
+        echo $_SESSION['regerror']; 
+        session_unset();
+    }
+    ?></h3>
     
     <p>
 

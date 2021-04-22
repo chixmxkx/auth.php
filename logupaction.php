@@ -18,21 +18,20 @@ $userData = [
     'email_address' => $email_address,
     'phone_number' => $phone_number,
     'date_of_birth' => $date_of_birth,
-    'password' => password_hash($password, PASSWORD_DEFAULT),
+    'password' => sha1($password),
     'account_type' => $account_type
 ];  
 for($counter = 0; $counter < $countAllUsers; $counter++){
     $currentUser = $allUsers[$counter];
     if($currentUser == $email_address . ".json"){
         header("Location: logup.php");
-        $_SESSION["error"] = "Registration Failed. User already exist";
-        echo $_SESSION["error"];
+        $_SESSION["regerror"] = "Registration Failed. User already exist";
         die();
     }
     
 }
 file_put_contents("database/". $email_address. ".json", json_encode($userData));
-header("Location: login.php");
-$_SESSION["message"] = "Registration Successful! You can now signin";
+header("Location: logup.php");
+$_SESSION["regmes"] = "Registration Successful! You can now signin";
 die();  
 ?> 

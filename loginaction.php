@@ -2,9 +2,9 @@
 
 if($_POST['email_address']){
     $email_address = trim($_POST['email_address']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    //var_dump($password);
-    //exit;
+    $password = sha1($_POST['password']);
+
+    $_SESSION['email_address'] = $email_address;
 
     $userString = file_get_contents("database/".$email_address . ".json", "r");
     $userData = json_decode($userString, true);
@@ -15,12 +15,13 @@ if($_POST['email_address']){
     }
 
     if($userData['email_address'] == $email_address && $userData['password'] == $password){
-        $_SESSION["message"] = "You are now signed in";
+        $_SESSION["MESSAGE"] = "You are now signed in";
+        echo $_SESSION["MESSAGE"];
         header("Location: home.php");
         die();
     }
     else{
-        $_SESSION["error"] = "Invalid Password. Try again";
+        $_SESSION["ERROR"] = "Invalid Details. Try again";
         header("Location: login.php"); 
         die(); 
     }

@@ -8,9 +8,10 @@ include_once('LIB/header.php')
 
     <h1>Welcome!</h1>
 
-      <?php
-          if(!isset($_SESSION['message'])){}
-      ?> 
+      <h3><?php
+          echo $_SESSION['MESSAGE'];
+        ?></h3>
+
 <a href = "home.php"> Home </a> |
 <a href = "reset.php"> Reset Password </a> |
 <a href = "logout.php"> Signout </a>

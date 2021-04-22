@@ -1,9 +1,28 @@
-<?php include_once('LIB/header.php') ?>
+<?php session_start();
+include_once('LIB/header.php') ?>
 
 <title>Password Reset Page</title>
 
 <body>
     <h1>Reset Password</h1>
+    <h3> <?php 
+    if(isset($_SESSION['err'])){
+        echo $_SESSION['err'];
+        session_unset();
+    } 
+    ?> </h3>
+    <h3> <?php 
+    if(isset($_SESSION['error'])){
+        echo $_SESSION['error'];
+        session_unset();
+    } 
+    ?> </h3>
+    <h3> <?php 
+    if(isset($_SESSION['message'])){
+        echo $_SESSION['message'];
+        session_unset();
+    }    
+    ?> </h3>
     <form action = "resetaction.php" method = "post">
         <p><label>Old Password</label><input type = "password" name = "password" required/></p>
         <p><label>New Password</label><input type = "password" name = "new_password" required/></p>
